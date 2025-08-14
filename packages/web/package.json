@@ -38,6 +38,8 @@
     "@cosmos-kit/station": "^2.10.2",
     "@cosmos-kit/trust": "^2.11.2",
     "@cosmos-kit/xdefi": "^2.10.2",
+    "@cosmos-kit/riv-wallet-extension": "^2.15.0",
+    "@cosmos-kit/riv-wallet-mobile": "^2.15.0",
     "@headlessui/react": "^2.1.1",
     "@keplr-wallet/common": "0.10.24-ibc.go.v7.hot.fix",
     "@keplr-wallet/crypto": "0.12.48",

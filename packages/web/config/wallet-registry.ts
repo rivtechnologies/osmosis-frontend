@@ -336,4 +336,32 @@ export const CosmosWalletRegistry: CosmosRegistryWallet[] = [
     },
     features: [],
   },
+  {
+    ...CosmosKitWalletList["riv-wallet-extension"],
+    logo: "/wallets/riv-wallet.png",
+    mobileDisabled: false,
+    lazyInstall: () => import("@cosmos-kit/riv-wallet-extension").then((m) => m.RivWalletExtensionWallet),
+    windowPropertyName: "rivwallet",
+    supportsChain: async (chainId) => {
+      const rivWalletExtensionAvailableChains: MainnetChainIds[] = [
+        "cosmoshub-4",
+        "osmosis-1",
+      ];
+      return rivWalletExtensionAvailableChains.includes(chainId as MainnetChainIds);
+    },
+    features: [],
+  },
+  {
+    ...CosmosKitWalletList["riv-wallet-mobile"],
+    logo: "/wallets/riv-wallet.png",
+    lazyInstall: () => import("@cosmos-kit/riv-wallet-mobile").then((m) => m.RivWalletMobileWallet),
+    supportsChain: async (chainId) => {
+      const rivWalletMobileAvailableChains: MainnetChainIds[] = [
+        "cosmoshub-4",
+        "osmosis-1",
+      ];
+      return rivWalletMobileAvailableChains.includes(chainId as MainnetChainIds);
+    },
+    features: [],
+  },
 ];
