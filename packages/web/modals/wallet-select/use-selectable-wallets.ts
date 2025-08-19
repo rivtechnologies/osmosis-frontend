@@ -142,12 +142,30 @@ export const useSelectableWallets = ({
                 )
                 .map((wallet) => ({ ...wallet, mobileDisabled: false }));
             }
+            /**
+             * If on mobile and `rivwallet` is in `window`, it means that the user enters
+             * the frontend from RIV Wallet's app in app browser. So, there is no need
+             * to use wallet connect, as it resembles the extension's usage.
+             */
+            if (
+              _window?.rivwallet &&
+              _window?.rivwallet?.mode === mobileWebModeName
+            ) {
+              return array
+                .filter(
+                  (wallet) =>
+                    wallet.name === AvailableCosmosWallets.RIVWallet
+                )
+                .map((wallet) => ({ ...wallet, mobileDisabled: false }));
+            }
 
             /**
              * If user is in a normal mobile browser, show only wallet connect
              */
             return wallet.name.endsWith("mobile") ? [...acc, wallet] : acc;
+
           }
+
 
           return [...acc, wallet];
         }, [] as (typeof CosmosWalletRegistry)[number][])
