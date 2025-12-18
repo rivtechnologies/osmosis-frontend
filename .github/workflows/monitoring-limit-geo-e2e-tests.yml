@@ -34,6 +34,7 @@ jobs:
         env:
           BASE_URL: "https://app.osmosis.zone"
           PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY_3 }}
+          WALLET_ID: ${{ secrets.TEST_WALLET_ID_3 }}
         run: |
           cd packages/e2e
           npx playwright test monitoring.swap
@@ -76,6 +77,7 @@ jobs:
           TEST_PROXY_USERNAME: ${{ secrets.TEST_PROXY_USERNAME }}
           TEST_PROXY_PASSWORD: ${{ secrets.TEST_PROXY_PASSWORD }}
           PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY_2 }}
+          WALLET_ID: ${{ secrets.TEST_WALLET_ID_2 }}
           USE_TEST_PROXY: "use"
         run: |
           cd packages/e2e
@@ -121,6 +123,7 @@ jobs:
           TEST_PROXY_USERNAME: ${{ secrets.TEST_PROXY_USERNAME }}
           TEST_PROXY_PASSWORD: ${{ secrets.TEST_PROXY_PASSWORD }}
           PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY_1 }}
+          WALLET_ID: ${{ secrets.TEST_WALLET_ID_1 }}
           USE_TEST_PROXY: "use"
         run: |
           cd packages/e2e
@@ -167,6 +170,7 @@ jobs:
           TEST_PROXY_USERNAME: ${{ secrets.TEST_PROXY_USERNAME }}
           TEST_PROXY_PASSWORD: ${{ secrets.TEST_PROXY_PASSWORD }}
           PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY_2 }}
+          WALLET_ID: ${{ secrets.TEST_WALLET_ID_2 }}
           USE_TEST_PROXY: "use"
         run: |
           cd packages/e2e
@@ -218,6 +222,7 @@ jobs:
           TEST_PROXY_USERNAME: ${{ secrets.TEST_PROXY_USERNAME }}
           TEST_PROXY_PASSWORD: ${{ secrets.TEST_PROXY_PASSWORD }}
           PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY_2 }}
+          WALLET_ID: ${{ secrets.TEST_WALLET_ID_2 }}
           USE_TEST_PROXY: "use"
         run: |
           cd packages/e2e
@@ -268,6 +273,7 @@ jobs:
           TEST_PROXY_USERNAME: ${{ secrets.TEST_PROXY_USERNAME }}
           TEST_PROXY_PASSWORD: ${{ secrets.TEST_PROXY_PASSWORD }}
           PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY_1 }}
+          WALLET_ID: ${{ secrets.TEST_WALLET_ID_1 }}
           USE_TEST_PROXY: "use"
         run: |
           cd packages/e2e
@@ -316,6 +322,7 @@ jobs:
         env:
           BASE_URL: "https://app.osmosis.zone"
           PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY_3 }}
+          WALLET_ID: ${{ secrets.TEST_WALLET_ID_3 }}
         run: |
           cd packages/e2e
           npx playwright test monitoring.market --timeout 90000
@@ -364,6 +371,7 @@ jobs:
         env:
           BASE_URL: "https://app.osmosis.zone"
           PRIVATE_KEY: ${{ secrets.TEST_PRIVATE_KEY_3 }}
+          WALLET_ID: ${{ secrets.TEST_WALLET_ID_3 }}
         run: |
           cd packages/e2e
           npx playwright test monitoring.limit --timeout 180000
@@ -395,32 +403,39 @@ jobs:
     if: failure() && github.run_attempt == 2 && (needs.fe-trade-eu.outputs.unexpected > 1 || needs.fe-trade-us.outputs.unexpected > 1 || needs.fe-trade-sg.outputs.unexpected > 1 || needs.fe-limit-eu.outputs.unexpected > 1 || needs.fe-limit-us.outputs.unexpected > 1)
     # Send alert only if something failed and unexpected failures are more than 1
     steps:
-      - name: Send Slack alert if test fails
-        id: slack
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          payload: |
-            {
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "🚨 Synthetic Prod Trade Monitoring Tests Failure Alert 🚨"
-                  }
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Click here to view the run: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|GitHub Actions Run>"
-                  }
-                }
-              ]
-            }
+      - name: Install Datadog CI
+        run: |
+          echo "📦 Installing Datadog CI..."
+          curl -L --fail "https://github.com/DataDog/datadog-ci/releases/download/v4.1.2/datadog-ci_linux-x64" --output "/usr/local/bin/datadog-ci"
+          chmod +x /usr/local/bin/datadog-ci
+          echo "✅ Datadog CI installed"
+
+      - name: Verify Datadog CI Installation
+        run: |
+          echo "🔍 Verifying Datadog CI installation..."
+          datadog-ci version
+          echo "✅ Datadog CI is ready to use"
+
+      - name: Send Datadog alert if test fails
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SERVER_E2E_TESTS_SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+          DD_APP_KEY: ${{ secrets.DATADOG_APPLICATION_KEY }}
+          DD_SITE: ${{ secrets.DATADOG_SITE }}
+        run: |
+          echo "🔍 Sending critical failure metrics to Datadog..."
+
+          # Add custom tag to mark this as a critical failure (2nd attempt with multiple failures)
+          datadog-ci tag --level pipeline --tags "critical_failure:true" --tags "dd_gh_run_attempt:${{ github.run_attempt }}"
+
+          # Add tags for unexpected failure counts by region
+          datadog-ci tag --level pipeline \
+            --tags "fe_trade_eu_unexpected:${{ needs.fe-trade-eu.outputs.unexpected }}" \
+            --tags "fe_trade_us_unexpected:${{ needs.fe-trade-us.outputs.unexpected }}" \
+            --tags "fe_trade_sg_unexpected:${{ needs.fe-trade-sg.outputs.unexpected }}" \
+            --tags "fe_limit_eu_unexpected:${{ needs.fe-limit-eu.outputs.unexpected }}" \
+            --tags "fe_limit_us_unexpected:${{ needs.fe-limit-us.outputs.unexpected }}"
+
+          echo "✅ Metrics sent to Datadog successfully"
 
   delete-deployments:
     runs-on: ubuntu-latest

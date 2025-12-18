@@ -172,10 +172,10 @@
       "meme": "Meme",
       "liquid_staking": "Flüssiges Abstecken",
       "built_on_osmosis": "Auf Osmose aufgebaut",
-      "sail_initiative": "Sail Initiative",
       "bridges": "Brücken",
       "nft_protocol": "NFT-Protokoll",
       "ai": "KI",
+      "depin": "DePIN",
       "privacy": "Privatsphäre",
       "social": "Sozial",
       "oracles": "Orakel",
@@ -190,7 +190,9 @@
       "new": "Neu",
       "topGainers": "Top-Gewinner",
       "upcoming": "Bevorstehende"
-    }
+    },
+    "strandedTokenDepositDisabled": "Dieses Asset kann nicht hinterlegt werden, da die Route zu seiner Ursprungskette nicht mehr aktiv ist.",
+    "strandedTokenWithdrawDisabled": "Dieser Vermögenswert kann nicht abgehoben werden, da die Route zu seiner Ursprungskette nicht mehr aktiv ist."
   },
   "cypherCard": {
     "cypherSpend": "Osmose-Bezahlung",
@@ -888,6 +890,9 @@
     "sendFundsToAccount": "Bitte senden Sie einen Gas-Token an Ihr {chain} -Konto, bevor Sie {asset} übertragen.",
     "insufficientFundsForFees": "Unzureichende Mittel für Gebühren",
     "youNeedFundsToPay": "Sie benötigen Guthaben, um Netzwerk- und Überbrückungsgebühren für {chain} zu bezahlen.",
+    "youNeedFundsToPayWithFee": "Der Betrag, den Sie zu überweisen versuchen, ist zu niedrig, um die Überbrückungsgebühr von {feeAmount} {feeCurrency} für {chain} zu decken. Bitte versuchen Sie einen größeren Betrag.",
+    "transferAmountTooLowValueLoss": "Überweisungsbetrag zu niedrig",
+    "valueLossTooHighToBridge": "Der Überweisungsbetrag ist nach Abzug der Gebühren zu niedrig. Der Wertverlust wäre zu hoch, um erfolgreich zu überbrücken. Bitte versuchen Sie es mit einem höheren Betrag.",
     "assetsDepositsUnavailable": "{asset} Einlagen sind nicht verfügbar",
     "assetWithdrawalsUnavailable": "{asset} Abhebungen sind nicht verfügbar",
     "noAvailableDeposits": "Derzeit können keine verfügbaren Routen oder Anbieter gefunden werden. Bitte versuchen Sie es später erneut oder verwenden Sie eine alternative Anwendung, um Ihr Geld an Osmosis zu überweisen.",
@@ -908,7 +913,7 @@
     "receiveOnlyAsset": "Diese Adresse kann nur {denom} vom Netzwerk {network} empfangen. Das Senden anderer Assets kann zu einem dauerhaften Verlust führen.",
     "minimumDeposit": "Mindesteinzahlung",
     "nomic": {
-      "estimatedTime": "Etwa 1 Stunde",
+      "estimatedTime": "1-8 Std.",
       "awaitingBtc": "Warten auf BTC",
       "transferringYourBtc": "Übertragen Sie Ihre BTC",
       "depositStatus": "Einzahlungsstatus",
@@ -1331,5 +1336,6 @@
   "lowLiquidityAlert": {
     "title": "Ihr Handel kann scheitern",
     "description": "Aufgrund der geringen Liquidität von {tokenWithLowLiquidity} in allen Pools kann dieser Handel zu hohem Slippage führen und wird möglicherweise nicht ausgeführt."
-  }
+  },
+  "taprootAddressNotSupported": "Taproot-Adressen werden für Abhebungen nicht unterstützt"
 }

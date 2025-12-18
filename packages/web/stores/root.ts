@@ -1,4 +1,3 @@
-import { AxelarTransferStatusProvider } from "@osmosis-labs/bridge/build/axelar/transfer-status";
 import { IbcTransferStatusProvider } from "@osmosis-labs/bridge/build/ibc/transfer-status";
 import { Int3faceTransferStatusProvider } from "@osmosis-labs/bridge/build/int3face/transfer-status";
 import { NomicTransferStatusProvider } from "@osmosis-labs/bridge/build/nomic/transfer-status";
@@ -9,6 +8,10 @@ import {
   CosmwasmQueries,
   QueriesStore,
 } from "@osmosis-labs/keplr-stores";
+import {
+  AlloyedPoolCodeIds,
+  TransmuterPoolCodeIds,
+} from "@osmosis-labs/server";
 import {
   AccountStore,
   ChainStore,
@@ -35,7 +38,6 @@ import {
   BlacklistedPoolIds,
   HISTORICAL_DATA_URL,
   IS_TESTNET,
-  TransmuterPoolCodeIds,
   WALLETCONNECT_PROJECT_KEY,
   WALLETCONNECT_RELAY_URL,
 } from "~/config";
@@ -113,6 +115,7 @@ export class RootStore {
         webApiBaseUrl,
         BlacklistedPoolIds,
         TransmuterPoolCodeIds,
+        AlloyedPoolCodeIds,
         IS_TESTNET
       )
     );
@@ -222,7 +225,6 @@ export class RootStore {
     );
 
     const transferStatusProviders = [
-      new AxelarTransferStatusProvider(IS_TESTNET ? "testnet" : "mainnet"),
       new SquidTransferStatusProvider(
         IS_TESTNET ? "testnet" : "mainnet",
         ChainList

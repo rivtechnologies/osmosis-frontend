@@ -172,10 +172,10 @@
       "meme": "meme",
       "liquid_staking": "Sıvı esnetme",
       "built_on_osmosis": "Osmoz üzerine inşa edilmiştir",
-      "sail_initiative": "Yelken Girişimi",
       "bridges": "Köprüler",
       "nft_protocol": "NFT Protokolü",
       "ai": "yapay zeka",
+      "depin": "DePIN",
       "privacy": "Mahremiyet",
       "social": "Sosyal",
       "oracles": "Kahinler",
@@ -190,7 +190,9 @@
       "new": "Yeni",
       "topGainers": "En çok kazananlar",
       "upcoming": "Yaklaşan"
-    }
+    },
+    "strandedTokenDepositDisabled": "Bu varlık, kaynak zincirine giden yol artık etkin olmadığından yatırılamaz",
+    "strandedTokenWithdrawDisabled": "Bu varlık geri çekilemez çünkü kaynak zincirine giden yol artık etkin değil"
   },
   "cypherCard": {
     "cypherSpend": "Osmoz Ödeme",
@@ -888,6 +890,9 @@
     "sendFundsToAccount": "Lütfen { {chain} {asset} chain\"} hesabınıza bir gaz tokeni gönderin.",
     "insufficientFundsForFees": "Ücretler için yeterli fon yok",
     "youNeedFundsToPay": "{chain} ağ ve köprüleme ücretlerini ödemek için paraya ihtiyacınız var.",
+    "youNeedFundsToPayWithFee": "Transfer etmeye çalıştığınız miktar, {chain} üzerinde {feeAmount} {feeCurrency} köprüleme ücretini karşılamak için çok düşük. Lütfen daha büyük bir miktar deneyin.",
+    "transferAmountTooLowValueLoss": "Transfer miktarı çok düşük",
+    "valueLossTooHighToBridge": "Ücretlerden sonra transfer miktarı çok düşük. Değer kaybı köprüyü başarıyla tamamlamak için çok yüksek olacaktır. Lütfen daha büyük bir miktar deneyin.",
     "assetsDepositsUnavailable": "{asset} para yatırma işlemleri kullanılamıyor",
     "assetWithdrawalsUnavailable": "{asset} çekimleri kullanılamaz",
     "noAvailableDeposits": "Şu anda mevcut rota veya sağlayıcı bulunamadı. Lütfen daha sonra tekrar deneyin veya paranızı Osmosis'e aktarmak için alternatif bir uygulama kullanın.",
@@ -908,7 +913,7 @@
     "receiveOnlyAsset": "Bu adres yalnızca {denom} {network} \"denom\"} alabilir. Başka herhangi bir varlığın gönderilmesi kalıcı kayba neden olabilir.",
     "minimumDeposit": "Minimum mevduat",
     "nomic": {
-      "estimatedTime": "Yaklaşık 1 saat",
+      "estimatedTime": "1-8 saat",
       "awaitingBtc": "BTC bekleniyor",
       "transferringYourBtc": "BTC'nizi transfer etme",
       "depositStatus": "Mevduat durumu",
@@ -1331,5 +1336,6 @@
   "lowLiquidityAlert": {
     "title": "İşleminiz başarısız olabilir",
     "description": "Tüm havuzlarda {tokenWithLowLiquidity} likiditesinin düşük olması nedeniyle, bu işlem yüksek kaymaya neden olabilir ve gerçekleştirilemeyebilir."
-  }
+  },
+  "taprootAddressNotSupported": "Taproot adresleri çekimler için desteklenmiyor"
 }

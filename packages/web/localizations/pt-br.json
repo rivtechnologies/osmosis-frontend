@@ -172,10 +172,10 @@
       "meme": "Memes",
       "liquid_staking": "Estaqueamento líquido",
       "built_on_osmosis": "Construído em Osmose",
-      "sail_initiative": "Iniciativa Vela",
       "bridges": "Pontes",
       "nft_protocol": "Protocolo NFT",
       "ai": "IA",
+      "depin": "DePIN",
       "privacy": "Privacidade",
       "social": "Social",
       "oracles": "Oráculos",
@@ -190,7 +190,9 @@
       "new": "Novo",
       "topGainers": "Principais ganhadores",
       "upcoming": "Por vir"
-    }
+    },
+    "strandedTokenDepositDisabled": "Este ativo não pode ser depositado porque a rota para sua cadeia de origem não está mais ativa.",
+    "strandedTokenWithdrawDisabled": "Este ativo não pode ser retirado porque a rota para sua cadeia de origem não está mais ativa."
   },
   "cypherCard": {
     "cypherSpend": "Pagamento por osmose",
@@ -888,6 +890,9 @@
     "sendFundsToAccount": "Envie um token de gás para sua conta {chain} antes de transferir {asset} .",
     "insufficientFundsForFees": "Fundos insuficientes para taxas",
     "youNeedFundsToPay": "Você precisa de fundos para pagar taxas de rede e de ponte em {chain} .",
+    "youNeedFundsToPayWithFee": "O valor que você está tentando transferir é muito baixo para cobrir a taxa de ponte de {feeAmount} {feeCurrency} em {chain}. Por favor, tente um valor maior.",
+    "transferAmountTooLowValueLoss": "Valor de transferência muito baixo",
+    "valueLossTooHighToBridge": "O valor de transferência é muito baixo após as taxas. A perda de valor seria muito alta para realizar a ponte com sucesso. Por favor, tente um valor maior.",
     "assetsDepositsUnavailable": "{asset} depósitos não estão disponíveis",
     "assetWithdrawalsUnavailable": "{asset} retiradas não estão disponíveis",
     "noAvailableDeposits": "Atualmente nenhuma rota ou provedor disponível pode ser encontrado. Tente novamente mais tarde ou use um aplicativo alternativo para transferir seus fundos para o Osmosis.",
@@ -908,7 +913,7 @@
     "receiveOnlyAsset": "Este endereço só pode receber {denom} da rede {network} . Enviar quaisquer outros ativos pode resultar em perda permanente.",
     "minimumDeposit": "Depósito mínimo",
     "nomic": {
-      "estimatedTime": "Cerca de 1 hora",
+      "estimatedTime": "1-8 h",
       "awaitingBtc": "Aguardando BTC",
       "transferringYourBtc": "Transferindo seu BTC",
       "depositStatus": "Status do depósito",
@@ -1331,5 +1336,6 @@
   "lowLiquidityAlert": {
     "title": "Seu negócio pode falhar",
     "description": "Devido à baixa liquidez de {tokenWithLowLiquidity} em todos os pools, esta negociação pode resultar em alto deslizamento e pode não ser executada."
-  }
+  },
+  "taprootAddressNotSupported": "Endereços Taproot não são suportados para retiradas"
 }

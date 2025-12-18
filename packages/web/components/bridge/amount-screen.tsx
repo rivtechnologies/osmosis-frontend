@@ -3,6 +3,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
+import { BridgeChain } from "@osmosis-labs/bridge";
 import { MinimalAsset } from "@osmosis-labs/types";
 import { IntPretty } from "@osmosis-labs/unit";
 import { isNil, noop, shorten } from "@osmosis-labs/utils";
@@ -467,9 +468,43 @@ export const AmountScreen = observer(
             type: fromChain.chainType,
             assets: assets as Extract<SupportedAsset, { chainType: "doge" }>[],
           };
-        default:
+        case "litecoin":
           return {
             type: fromChain.chainType,
+            assets: assets as Extract<
+              SupportedAsset,
+              { chainType: "litecoin" }
+            >[],
+          };
+        case "xrpl":
+          return {
+            type: fromChain.chainType,
+            assets: assets as Extract<SupportedAsset, { chainType: "xrpl" }>[],
+          };
+        case "bitcoin-cash":
+          return {
+            type: fromChain.chainType,
+            assets: assets as Extract<
+              SupportedAsset,
+              { chainType: "bitcoin-cash" }
+            >[],
+          };
+        case "ton":
+          return {
+            type: fromChain.chainType,
+            assets: assets as Extract<SupportedAsset, { chainType: "ton" }>[],
+          };
+        case "solana":
+          return {
+            type: fromChain.chainType,
+            assets: assets as Extract<
+              SupportedAsset,
+              { chainType: "solana" }
+            >[],
+          };
+        default:
+          return {
+            type: (fromChain as BridgeChain).chainType,
             assets: assets as Extract<
               SupportedAsset,
               { chainType: "solana" }
@@ -708,13 +743,16 @@ export const AmountScreen = observer(
           : !toChain || !toAsset));
 
     const isTransferButtonDisabled = useMemo(() => {
-      if (cryptoAmount === "" || cryptoAmount === "0" || !quote.userCanAdvance)
+      if (
+        cryptoAmount === "" ||
+        cryptoAmount === "0" ||
+        (!quote.userCanAdvance && !warnUserOfPriceImpact && !warnUserOfSlippage)
+      )
         return true;
 
       if (warnUserOfPriceImpact || warnUserOfSlippage) {
         return !wishesToProceed;
       }
-
       return false;
     }, [
       cryptoAmount,
@@ -991,32 +1029,32 @@ export const AmountScreen = observer(
             transferGasChain={fromChain}
           />
 
+          {(isLoadingAssetsBalance || isLoading) && (
+            <div className="flex w-full items-center justify-center gap-3">
+              <Spinner className="text-wosmongton-500" />
+              <p className="body1 md:body2 text-osmoverse-300">
+                {t("transfer.lookingForBalances")}
+              </p>
+            </div>
+          )}
+
+          {!isLoadingAssetsBalance &&
+            !isLoading &&
+            assetsBalances?.length === 1 && (
+              <p className="body1 md:body2 w-full text-center text-osmoverse-300">
+                {inputUnit === "crypto"
+                  ? assetsBalances[0].amount
+                      .trim(true)
+                      .maxDecimals(6)
+                      .hideDenom(true)
+                      .toString()
+                  : assetsBalances[0].usdValue.toString()}{" "}
+                {t("transfer.available")}
+              </p>
+            )}
+
           {(isWalletNeededConnected || isLoading) && (
             <>
-              {(isLoadingAssetsBalance || isLoading) && (
-                <div className="flex w-full items-center justify-center gap-3">
-                  <Spinner className="text-wosmongton-500" />
-                  <p className="body1 md:body2 text-osmoverse-300">
-                    {t("transfer.lookingForBalances")}
-                  </p>
-                </div>
-              )}
-
-              {!isLoadingAssetsBalance &&
-                !isLoading &&
-                assetsBalances?.length === 1 && (
-                  <p className="body1 md:body2 w-full text-center text-osmoverse-300">
-                    {inputUnit === "crypto"
-                      ? assetsBalances[0].amount
-                          .trim(true)
-                          .maxDecimals(6)
-                          .hideDenom(true)
-                          .toString()
-                      : assetsBalances[0].usdValue.toString()}{" "}
-                    {t("transfer.available")}
-                  </p>
-                )}
-
               {!isLoadingAssetsBalance &&
                 !isLoading &&
                 assetsBalances &&
@@ -1197,8 +1235,6 @@ export const AmountScreen = observer(
               }
               fromChain={fromChain}
               isLoading={isLoadingBridgeQuote}
-              warnUserOfPriceImpact={warnUserOfPriceImpact}
-              warnUserOfSlippage={warnUserOfSlippage}
             />
           )}
 
@@ -1475,32 +1511,25 @@ const TransferDetails: FunctionComponent<{
   quote: BridgeQuote | undefined;
   fromChain: BridgeChainWithDisplayInfo;
   isLoading: boolean;
-  warnUserOfPriceImpact?: boolean;
-  warnUserOfSlippage?: boolean;
-}> = ({
-  quote,
-  fromChain,
-  isLoading,
-  warnUserOfPriceImpact,
-  warnUserOfSlippage,
-}) => {
+}> = ({ quote, fromChain, isLoading }) => {
   const [detailsRef, { height: detailsHeight, y: detailsOffset }] =
     useMeasure<HTMLDivElement>();
   const { t } = useTranslation();
   const successfulQuotes = quote?.successfulQuotes ?? [];
+  const isOpen = quote?.warnUserOfPriceImpact || quote?.warnUserOfSlippage;
 
   if (!isLoading && successfulQuotes.length === 0) {
     return null;
   }
 
   return (
-    <Disclosure defaultOpen={warnUserOfPriceImpact || warnUserOfSlippage}>
+    <Disclosure key={`details-disclosure-${isOpen}`} defaultOpen={isOpen}>
       {({ open }) => (
         <div
           className="flex w-full flex-col gap-3 overflow-clip transition-height duration-300 ease-inOutBack"
           style={{
             height: open
-              ? (detailsHeight + detailsOffset ?? 288) + 46 // collapsed height
+              ? detailsHeight + detailsOffset + 46 // collapsed height
               : 36,
           }}
         >

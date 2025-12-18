@@ -172,10 +172,10 @@
       "meme": "Mème",
       "liquid_staking": "Jalonnement liquide",
       "built_on_osmosis": "Construit sur l'osmose",
-      "sail_initiative": "Initiative de voile",
       "bridges": "Des ponts",
       "nft_protocol": "Protocole NFT",
       "ai": "IA",
+      "depin": "DePIN",
       "privacy": "Confidentialité",
       "social": "Sociale",
       "oracles": "Oracles",
@@ -190,7 +190,9 @@
       "new": "Nouveau",
       "topGainers": "Meilleurs gagnants",
       "upcoming": "A venir"
-    }
+    },
+    "strandedTokenDepositDisabled": "Ce actif ne peut être déposé car la route vers sa chaîne d'origine n'est plus active.",
+    "strandedTokenWithdrawDisabled": "Cet actif ne peut être retiré car la route vers sa chaîne d'origine n'est plus active."
   },
   "cypherCard": {
     "cypherSpend": "Paiement par osmose",
@@ -888,6 +890,9 @@
     "sendFundsToAccount": "Veuillez envoyer un jeton de gaz à votre compte {chain} avant de transférer {asset} .",
     "insufficientFundsForFees": "Fonds insuffisants pour les frais",
     "youNeedFundsToPay": "Vous avez besoin de fonds pour payer les frais de réseau et de transition sur {chain} .",
+    "youNeedFundsToPayWithFee": "Le montant que vous essayez de transférer est trop faible pour couvrir les frais de pontage de {feeAmount} {feeCurrency} sur {chain}. Veuillez essayer un montant plus élevé.",
+    "transferAmountTooLowValueLoss": "Montant du transfert trop bas",
+    "valueLossTooHighToBridge": "Le montant du transfert est trop bas après les frais. La perte de valeur serait trop élevée pour effectuer le pontage avec succès. Veuillez essayer un montant plus élevé.",
     "assetsDepositsUnavailable": "Les dépôts {asset} ne sont pas disponibles",
     "assetWithdrawalsUnavailable": "Les retraits de {asset} ne sont pas disponibles",
     "noAvailableDeposits": "Actuellement, aucun itinéraire ou fournisseur disponible n'a été trouvé. Veuillez réessayer plus tard ou utiliser une autre application pour transférer vos fonds vers Osmosis.",
@@ -908,7 +913,7 @@
     "receiveOnlyAsset": "Cette adresse ne peut recevoir que {denom} du réseau {network} . L'envoi de tout autre élément peut entraîner une perte permanente.",
     "minimumDeposit": "Dépôt minimum",
     "nomic": {
-      "estimatedTime": "Environ 1 heure",
+      "estimatedTime": "1-8 h",
       "awaitingBtc": "En attente de BTC",
       "transferringYourBtc": "Transférer votre BTC",
       "depositStatus": "Statut du dépôt",
@@ -1331,5 +1336,6 @@
   "lowLiquidityAlert": {
     "title": "Votre transaction peut échouer",
     "description": "En raison de la faible liquidité de {tokenWithLowLiquidity} dans tous les pools, cette transaction peut entraîner un glissement élevé et peut ne pas être exécutée."
-  }
+  },
+  "taprootAddressNotSupported": "Les adresses de racine pivotante ne sont pas prises en charge pour les retraits"
 }

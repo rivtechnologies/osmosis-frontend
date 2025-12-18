@@ -172,10 +172,10 @@
       "meme": "迷因",
       "liquid_staking": "流動質押",
       "built_on_osmosis": "建立在滲透基礎上",
-      "sail_initiative": "揚帆倡議",
       "bridges": "橋樑",
       "nft_protocol": "NFT協議",
       "ai": "人工智慧",
+      "depin": "DePIN",
       "privacy": "隱私",
       "social": "社會的",
       "oracles": "神諭者",
@@ -190,7 +190,9 @@
       "new": "新的",
       "topGainers": "漲幅居前者",
       "upcoming": "即將推出"
-    }
+    },
+    "strandedTokenDepositDisabled": "由於通往其原始鏈的路徑已失效，因此無法存入該資產。",
+    "strandedTokenWithdrawDisabled": "由於通往其源鏈的路徑已失效，因此該資產無法提取。"
   },
   "cypherCard": {
     "cypherSpend": "滲透支付",
@@ -888,6 +890,9 @@
     "sendFundsToAccount": "請在轉移 {\"type {chain} {asset} chain\"} 帳戶。",
     "insufficientFundsForFees": "費用資金不足",
     "youNeedFundsToPay": "您需要資金來支付{chain}上的網路和橋接費。",
+    "youNeedFundsToPayWithFee": "您嘗試轉移的金額太低，無法支付{chain}上 {feeAmount} {feeCurrency} 的橋接費用。請嘗試更大的金額。",
+    "transferAmountTooLowValueLoss": "轉賬金額太低",
+    "valueLossTooHighToBridge": "扣除費用後的轉賬金額太低。價值損失太高，無法成功橋接。請嘗試更大的金額。",
     "assetsDepositsUnavailable": "{asset}存款不可用",
     "assetWithdrawalsUnavailable": "{asset}提現不可用",
     "noAvailableDeposits": "目前找不到可用的路線或提供者。請稍後再試或使用其他應用程式將您的資金轉移到 Osmosis。",
@@ -908,7 +913,7 @@
     "receiveOnlyAsset": "此位址只能從{denom} {network} \"denom\"}。發送任何其他資產可能會導致永久性損失。",
     "minimumDeposit": "最低存款額",
     "nomic": {
-      "estimatedTime": "約1小時",
+      "estimatedTime": "1-8 小時",
       "awaitingBtc": "等待比特幣",
       "transferringYourBtc": "轉移您的比特幣",
       "depositStatus": "存款狀態",
@@ -1331,5 +1336,6 @@
   "lowLiquidityAlert": {
     "title": "你的交易可能會失敗",
     "description": "由於所有資金池的{tokenWithLowLiquidity}流動性較低，該交易可能會導致高滑點，並且可能無法執行。"
-  }
+  },
+  "taprootAddressNotSupported": "Taproot 位址不支援提現"
 }
